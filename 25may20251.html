@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Evlilik Tarihi</title>
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#eee;
+}
+
+svg{
+  width:350px;
+  animation:beat 1s infinite;
+  transform-origin:center;
+}
+
+@keyframes beat{
+  0%   { transform:scale(1); }
+  25%  { transform:scale(1.1); }
+  40%  { transform:scale(1); }
+  60%  { transform:scale(1.1); }
+  100% { transform:scale(1); }
+}
+
+text{
+  fill:white;
+  font-size:50px;
+  font-weight:bold;
+  font-family:Arial, sans-serif;
+  text-anchor:middle;
+  dominant-baseline:middle;
+}
+</style>
+</head>
+<body>
+
+<svg viewBox="0 0 512 512">
+  <path fill="red"
+    d="M256 472
+       L60 276
+       C20 236 20 170 60 130
+       C100 90 166 90 206 130
+       L256 180
+       L306 130
+       C346 90 412 90 452 130
+       C492 170 492 236 452 276
+       Z"/>
+  <text x="256" y="260">25.05.2025</text>
+</svg>
+
+</body>
+</html>
