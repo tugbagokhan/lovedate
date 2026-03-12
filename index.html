@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="tr">
+<!DOCTYPE html><html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Love</title>
-
-<style>
+<title>For My Love</title><style>
 
 body{
 margin:0;
@@ -23,23 +20,30 @@ height:100%;
 display:flex;
 align-items:center;
 justify-content:center;
+background:black;
 }
 
-/* SİNEMA EKRANI */
+/* ORTA KALP SPOT */
 
-#screen{
+#heartSpot{
 position:absolute;
-width:100%;
-height:100%;
-background:black;
+font-size:140px;
+color:#ff2d55;
 z-index:1;
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.2)}
+100%{transform:scale(1)}
 }
 
 /* PLAY */
 
 #playBtn{
 position:absolute;
-z-index:10;
+z-index:20;
 width:120px;
 height:120px;
 background:black;
@@ -59,7 +63,7 @@ border-bottom:20px solid transparent;
 margin-left:5px;
 }
 
-/* PERDELER */
+/* PERDE */
 
 .curtain{
 position:absolute;
@@ -68,7 +72,7 @@ width:50%;
 height:100%;
 background:url("curtain.jpg") center/cover no-repeat;
 transition:2.5s ease;
-z-index:5;
+z-index:10;
 }
 
 #leftCurtain{
@@ -94,84 +98,15 @@ transform:translateX(100%);
 #countdown{
 position:absolute;
 display:none;
-align-items:center;
-justify-content:center;
 width:100%;
 height:100%;
-z-index:3;
+z-index:5;
 }
 
-/* ÇEMBER */
-
-.circle1{
-position:absolute;
-width:420px;
-height:420px;
-border:8px solid white;
-border-radius:50%;
-}
-
-.circle2{
-position:absolute;
-width:340px;
-height:340px;
-border:8px solid white;
-border-radius:50%;
-}
-
-/* + */
-
-.crossH{
-position:absolute;
-width:100%;
-height:3px;
-background:white;
-}
-
-.crossV{
-position:absolute;
-height:100%;
-width:3px;
-background:white;
-}
-
-/* DÖNEN FİLM */
-
-.wedge{
-position:absolute;
-width:420px;
-height:420px;
-border-radius:50%;
-background:conic-gradient(
-rgba(255,255,255,0.4) 0deg,
-rgba(255,255,255,0.4) 70deg,
-transparent 70deg
-);
-animation:spin 1.1s linear infinite;
-}
-
-@keyframes spin{
-from{transform:rotate(0)}
-to{transform:rotate(360deg)}
-}
-
-#number{
-font-size:200px;
-font-weight:bold;
-color:white;
-z-index:2;
-}
-
-/* FİLM GRAIN */
-
-.grain{
-pointer-events:none;
-position:fixed;
+#countVideo{
 width:100%;
 height:100%;
-background:radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px);
-background-size:3px 3px;
-opacity:0.15;
+object-fit:cover;
 }
 
 /* FLASH */
@@ -220,12 +155,12 @@ font-size:18px;
 cursor:pointer;
 }
 
-/* HEARTS */
+/* HEART ANIMATION */
 
 .heart{
 position:absolute;
 color:red;
-font-size:20px;
+font-size:22px;
 animation:float 6s linear infinite;
 }
 
@@ -234,53 +169,12 @@ animation:float 6s linear infinite;
 100%{transform:translateY(-10vh);opacity:0}
 }
 
-</style>
-</head>
+</style></head><body><div id="stage"><div id="heartSpot">❤️</div><div id="playBtn" onclick="startExperience()"></div><div id="leftCurtain" class="curtain"></div>
+<div id="rightCurtain" class="curtain"></div><div id="countdown">
+<video id="countVideo" src="countdown.mp4"></video>
+</div></div><div id="flash"></div><div id="codeScreen"><h2>Sürprize son bir adım<br>Umarım beğenirsin ❤️</h2><input id="codeInput" placeholder="Kod gir"><button onclick="go()">Aç</button>
 
-<body>
-
-<div id="stage">
-
-<div id="screen"></div>
-
-<div id="playBtn" onclick="startExperience()"></div>
-
-<div id="leftCurtain" class="curtain"></div>
-<div id="rightCurtain" class="curtain"></div>
-
-<div id="countdown">
-
-<div class="circle1"></div>
-<div class="circle2"></div>
-
-<div class="crossH"></div>
-<div class="crossV"></div>
-
-<div class="wedge"></div>
-
-<div id="number"></div>
-
-</div>
-
-</div>
-
-<div class="grain"></div>
-
-<div id="flash"></div>
-
-<div id="codeScreen">
-
-<h2>❤️Sürprize son bir adım<br>Umarım beğenirsin ❤️</h2>
-
-<input id="codeInput" placeholder="Kod gir">
-
-<button onclick="go()">Aç</button>
-
-</div>
-
-<audio id="sound" src="countdown.mp3"></audio>
-
-<script>
+</div><script>
 
 function startExperience(){
 
@@ -295,22 +189,22 @@ setTimeout(startCountdown,2500);
 
 function startCountdown(){
 
+document.getElementById("heartSpot").style.display="none";
+
 let countdown=document.getElementById("countdown");
-let number=document.getElementById("number");
-let sound=document.getElementById("sound");
+let video=document.getElementById("countVideo");
 
-countdown.style.display="flex";
+countdown.style.display="block";
 
-sound.currentTime=0;
-sound.play();
+video.play();
 
-number.innerText="3";
-
-setTimeout(()=>{number.innerText="2"},1100);
-setTimeout(()=>{number.innerText="1"},2200);
-setTimeout(()=>{flash()},3300);
+video.onended=function(){
+flash();
+}
 
 }
+
+/* FLASH */
 
 function flash(){
 
@@ -321,24 +215,33 @@ flash.style.opacity="1";
 setTimeout(()=>{
 
 flash.style.opacity="0";
+
 showCode();
 
 },300);
 
 }
 
+/* CODE SCREEN */
+
 function showCode(){
 
 document.getElementById("stage").style.display="none";
 
 let screen=document.getElementById("codeScreen");
+
 screen.style.display="flex";
+
+/* uçan kalpler */
 
 setInterval(()=>{
 
 let h=document.createElement("div");
+
 h.className="heart";
+
 h.innerText="❤";
+
 h.style.left=Math.random()*100+"%";
 
 document.body.appendChild(h);
@@ -359,7 +262,5 @@ window.location.href="page.html?code="+code;
 
 }
 
-</script>
-
-</body>
+</script></body>
 </html>
