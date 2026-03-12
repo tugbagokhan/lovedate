@@ -3,7 +3,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bizim Şarkımız ❤️</title><style>
-
 body{
 background:black;
 color:white;
@@ -28,10 +27,11 @@ img{
 width:100%;
 border-radius:20px;
 box-shadow:0 0 25px rgba(255,0,80,0.5);
+display:none;
 }
 
 button{
-margin-top:25px;
+margin-top:20px;
 padding:15px 40px;
 border:none;
 border-radius:40px;
@@ -40,31 +40,61 @@ font-size:20px;
 cursor:pointer;
 }
 
+input{
+padding:12px;
+font-size:18px;
+border-radius:10px;
+border:none;
+margin-top:15px;
+text-align:center;
+}
+
 .error{
-margin-top:30px;
+margin-top:20px;
 color:red;
 font-size:20px;
 }
+</style></head><body><h1>Bizim Şarkımız ❤️</h1><div class="container"><input id="codeInput" placeholder="Kodu gir">
+<br><button onclick="loadContent()">Aç</button>
 
-</style></head><body><h1>Bizim Şarkımız ❤️</h1><div class="container"><img id="photo"><br><button onclick="playSong()">Şarkıyı Başlat 🎵</button>
+<br><br>
+
+<img id="photo"><br><button onclick="playSong()">Şarkıyı Başlat 🎵</button>
 
 <audio id="song"></audio>
 
 <div id="error" class="error"></div></div><script>
 
-<script>
+function loadContent(){
 
-const params = new URLSearchParams(window.location.search);
-const code = params.get("code");
+const code=document.getElementById("codeInput").value;
 
-const photoUrl = "https://res.cloudinary.com/dbtlit7hz/image/upload/clients/" + code + ".jpg";
-const songUrl = "/lovers/codes/" + code + "/sarki.mp3";
+const photoUrl="https://res.cloudinary.com/dbtlit7hz/image/upload/clients/"+code+".jpg";
+const songUrl="codes/"+code+"/sarki.mp3";
 
-document.getElementById("photo").src = photoUrl;
-document.getElementById("song").src = songUrl;
+const img=document.getElementById("photo");
+const song=document.getElementById("song");
+const error=document.getElementById("error");
+
+error.innerText="";
+
+img.src=photoUrl;
+song.src=songUrl;
+
+img.onload=function(){
+img.style.display="block";
+}
+
+img.onerror=function(){
+img.style.display="none";
+error.innerText="Yanlış Kod";
+}
+
+}
 
 function playSong(){
 document.getElementById("song").play();
 }
 
-</script>
+</script></body>
+</html>
