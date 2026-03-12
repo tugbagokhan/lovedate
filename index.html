@@ -61,21 +61,15 @@ transition:2.2s ease;
 z-index:10;
 }
 
-/* SOL PERDE */
-
 #leftCurtain{
 left:0;
 background-position:left center;
 }
 
-/* SAĞ PERDE */
-
 #rightCurtain{
 right:0;
 background-position:right center;
 }
-
-/* PERDE AÇILMA */
 
 .openLeft{
 transform:translateX(-100%);
@@ -147,7 +141,32 @@ font-size:18px;
 cursor:pointer;
 }
 
-/* UÇAN KALPLER */
+#error{
+color:red;
+margin-top:10px;
+display:none;
+}
+
+/* RESULT */
+
+#result{
+display:none;
+position:fixed;
+width:100%;
+height:100%;
+background:black;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+}
+
+#photo{
+width:80%;
+max-width:400px;
+border-radius:20px;
+}
+
+/* HEARTS */
 
 .heart{
 position:absolute;
@@ -164,8 +183,15 @@ animation:float 6s linear infinite;
 </style></head><body><div id="stage"><div id="playBtn" onclick="startExperience()"></div><div id="leftCurtain" class="curtain"></div>
 <div id="rightCurtain" class="curtain"></div><div id="countdown">
 <video id="countVideo" src="countdown.mp4"></video>
-</div></div><div id="flash"></div><div id="codeScreen"><h2>❤️Sürprize son bir adım❤️</h2><input id="codeInput" placeholder="Kod gir">
-<button onclick="go()">Aç</button></div><script>
+</div></div><div id="flash"></div><div id="codeScreen"><h2>❤️Sürprize son bir adım❤️</h2><input id="codeInput" placeholder="Kod gir"><button onclick="go()">Aç</button>
+
+<div id="error">Yanlış Kod</div></div><div id="result"><img id="photo"><br><br>
+
+<button onclick="playMusic()">Şarkıyı Çal 🎵</button>
+
+<audio id="music">
+<source id="musicSource" type="audio/mpeg">
+</audio></div><script>
 
 function startExperience(){
 
@@ -236,9 +262,37 @@ function go(){
 
 let code=document.getElementById("codeInput").value.trim();
 
-if(code=="") return;
+if(code==="") return;
 
-window.location.href="page.html?code="+code;
+let photoURL="https://res.cloudinary.com/dbtlit7hz/image/upload/clients/"+code+".jpg";
+let musicURL="codes/"+code+"/sarki.mp3";
+
+let img=new Image();
+
+img.onload=function(){
+
+document.getElementById("photo").src=photoURL;
+document.getElementById("musicSource").src=musicURL;
+document.getElementById("music").load();
+
+document.getElementById("codeScreen").style.display="none";
+document.getElementById("result").style.display="flex";
+
+};
+
+img.onerror=function(){
+
+document.getElementById("error").style.display="block";
+
+};
+
+img.src=photoURL;
+
+}
+
+function playMusic(){
+
+document.getElementById("music").play();
 
 }
 
