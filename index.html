@@ -17,26 +17,23 @@ overflow:hidden;
 position:fixed;
 width:100%;
 height:100%;
+background:black;
 display:flex;
 align-items:center;
 justify-content:center;
-background:black;
 }
 
-/* ORTA KALP SPOT */
+/* KALP SPOT IŞIĞI */
 
 #heartSpot{
 position:absolute;
-font-size:140px;
-color:#ff2d55;
+width:400px;
+height:350px;
+background:white;
+clip-path:path("M200 350 L40 200 A90 90 0 1 1 200 120 A90 90 0 1 1 360 200 Z");
+filter:blur(25px);
+opacity:0.9;
 z-index:1;
-animation:pulse 2s infinite;
-}
-
-@keyframes pulse{
-0%{transform:scale(1)}
-50%{transform:scale(1.2)}
-100%{transform:scale(1)}
 }
 
 /* PLAY */
@@ -155,7 +152,7 @@ font-size:18px;
 cursor:pointer;
 }
 
-/* HEART ANIMATION */
+/* UÇAN KALPLER */
 
 .heart{
 position:absolute;
@@ -169,7 +166,7 @@ animation:float 6s linear infinite;
 100%{transform:translateY(-10vh);opacity:0}
 }
 
-</style></head><body><div id="stage"><div id="heartSpot">❤️</div><div id="playBtn" onclick="startExperience()"></div><div id="leftCurtain" class="curtain"></div>
+</style></head><body><div id="stage"><div id="heartSpot"></div><div id="playBtn" onclick="startExperience()"></div><div id="leftCurtain" class="curtain"></div>
 <div id="rightCurtain" class="curtain"></div><div id="countdown">
 <video id="countVideo" src="countdown.mp4"></video>
 </div></div><div id="flash"></div><div id="codeScreen"><h2>❤️Sürprize son bir adım❤️</h2><input id="codeInput" placeholder="Kod gir"><button onclick="go()">Aç</button>
@@ -204,8 +201,6 @@ flash();
 
 }
 
-/* FLASH */
-
 function flash(){
 
 let flash=document.getElementById("flash");
@@ -215,33 +210,24 @@ flash.style.opacity="1";
 setTimeout(()=>{
 
 flash.style.opacity="0";
-
 showCode();
 
 },300);
 
 }
 
-/* CODE SCREEN */
-
 function showCode(){
 
 document.getElementById("stage").style.display="none";
 
 let screen=document.getElementById("codeScreen");
-
 screen.style.display="flex";
-
-/* uçan kalpler */
 
 setInterval(()=>{
 
 let h=document.createElement("div");
-
 h.className="heart";
-
 h.innerText="❤";
-
 h.style.left=Math.random()*100+"%";
 
 document.body.appendChild(h);
