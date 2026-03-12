@@ -17,6 +17,7 @@ font-family:Arial;
 position:fixed;
 width:100%;
 height:100%;
+background:black;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -56,73 +57,48 @@ height:100%;
 background-image:url("curtain.jpg");
 background-size:200% 100%;
 background-repeat:no-repeat;
-transition:2s;
+transition:2.2s ease;
+z-index:10;
 }
+
+/* SOL PERDE */
 
 #leftCurtain{
 left:0;
-background-position:left;
+background-position:left center;
 }
+
+/* SAĞ PERDE */
 
 #rightCurtain{
 right:0;
-background-position:right;
+background-position:right center;
 }
 
-.openLeft{transform:translateX(-100%);}
-.openRight{transform:translateX(100%);}
+/* PERDE AÇILMA */
+
+.openLeft{
+transform:translateX(-100%);
+}
+
+.openRight{
+transform:translateX(100%);
+}
 
 /* COUNTDOWN */
 
 #countdown{
-position:fixed;
-width:100%;
-height:100%;
-background:url("film.jpg") center/cover no-repeat;
-display:none;
-align-items:center;
-justify-content:center;
-}
-
-/* DAİRE */
-
-.circle{
-width:320px;
-height:320px;
-border-radius:50%;
-position:relative;
-display:flex;
-align-items:center;
-justify-content:center;
-}
-
-/* ÜÇGEN DİLİM */
-
-.slice{
 position:absolute;
+display:none;
 width:100%;
 height:100%;
-border-radius:50%;
-background:conic-gradient(
-rgba(255,255,255,0.7) 0deg,
-rgba(255,255,255,0.7) 40deg,
-transparent 40deg
-);
-animation:spin 1s linear infinite;
+z-index:5;
 }
 
-@keyframes spin{
-0%{transform:rotate(0deg)}
-100%{transform:rotate(360deg)}
-}
-
-/* SAYI */
-
-#number{
-font-size:150px;
-font-weight:bold;
-color:black;
-z-index:2;
+#countVideo{
+width:100%;
+height:100%;
+object-fit:cover;
 }
 
 /* FLASH */
@@ -133,11 +109,11 @@ width:100%;
 height:100%;
 background:white;
 opacity:0;
-transition:0.3s;
 pointer-events:none;
+transition:0.3s;
 }
 
-/* CODE */
+/* CODE SCREEN */
 
 #codeScreen{
 position:fixed;
@@ -171,10 +147,23 @@ font-size:18px;
 cursor:pointer;
 }
 
+/* UÇAN KALPLER */
+
+.heart{
+position:absolute;
+color:red;
+font-size:22px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh);opacity:1}
+100%{transform:translateY(-10vh);opacity:0}
+}
+
 </style></head><body><div id="stage"><div id="playBtn" onclick="startExperience()"></div><div id="leftCurtain" class="curtain"></div>
-<div id="rightCurtain" class="curtain"></div></div><div id="countdown"><div class="circle">
-<div class="slice"></div>
-<div id="number">3</div>
+<div id="rightCurtain" class="curtain"></div><div id="countdown">
+<video id="countVideo" src="countdown.mp4"></video>
 </div></div><div id="flash"></div><div id="codeScreen"><h2>❤️Sürprize son bir adım❤️</h2><input id="codeInput" placeholder="Kod gir">
 <button onclick="go()">Aç</button></div><script>
 
@@ -182,53 +171,37 @@ function startExperience(){
 
 document.getElementById("playBtn").style.display="none";
 
-leftCurtain.classList.add("openLeft");
-rightCurtain.classList.add("openRight");
+document.getElementById("leftCurtain").classList.add("openLeft");
+document.getElementById("rightCurtain").classList.add("openRight");
 
-setTimeout(startCountdown,2000);
+setTimeout(startCountdown,2200);
 
 }
 
 function startCountdown(){
 
-let cd=document.getElementById("countdown");
-let num=document.getElementById("number");
+let countdown=document.getElementById("countdown");
+let video=document.getElementById("countVideo");
 
-cd.style.display="flex";
+countdown.style.display="block";
 
-let numbers=[3,2,1];
-let i=0;
+video.play();
 
-num.innerText=numbers[i];
-
-let interval=setInterval(()=>{
-
-i++;
-
-if(i<numbers.length){
-
-num.innerText=numbers[i];
-
-}else{
-
-clearInterval(interval);
+video.onended=function(){
 flash();
-
 }
-
-},1000);
 
 }
 
 function flash(){
 
-let f=document.getElementById("flash");
+let flash=document.getElementById("flash");
 
-f.style.opacity="1";
+flash.style.opacity="1";
 
 setTimeout(()=>{
 
-f.style.opacity="0";
+flash.style.opacity="0";
 showCode();
 
 },300);
@@ -237,9 +210,25 @@ showCode();
 
 function showCode(){
 
-document.getElementById("countdown").style.display="none";
+document.getElementById("stage").style.display="none";
 
-document.getElementById("codeScreen").style.display="flex";
+let screen=document.getElementById("codeScreen");
+screen.style.display="flex";
+
+setInterval(()=>{
+
+let h=document.createElement("div");
+
+h.className="heart";
+h.innerText="❤";
+
+h.style.left=Math.random()*100+"%";
+
+document.body.appendChild(h);
+
+setTimeout(()=>h.remove(),6000);
+
+},300);
 
 }
 
