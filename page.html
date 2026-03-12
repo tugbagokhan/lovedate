@@ -52,19 +52,27 @@ cursor:pointer;
 
 <div class="container">
 
-<img src="https://res.cloudinary.com/dbtlit7hz/image/upload/v1773335961/photo1_wq6qze.jpg">
+<img id="photo">
 
 <br>
 
 <button onclick="playSong()">Şarkıyı Başlat 🎵</button>
 
-<audio id="song">
-<source src="codes/EC2026/sarki.mp3" type="audio/mpeg">
-</audio>
+<audio id="song"></audio>
 
 </div>
 
 <script>
+
+const params = new URLSearchParams(window.location.search);
+const code = params.get("code");
+
+const photoUrl = "https://res.cloudinary.com/dbtlit7hz/image/upload/" + code + ".jpg";
+const songUrl = "codes/" + code + "/sarki.mp3";
+
+document.getElementById("photo").src = photoUrl;
+
+document.getElementById("song").src = songUrl;
 
 function playSong(){
 document.getElementById("song").play();
