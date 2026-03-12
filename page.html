@@ -1,100 +1,156 @@
-<!DOCTYPE html><html lang="tr">
+<!DOCTYPE html>
+<html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bizim Şarkımız ❤️</title><style>
+
+<title>Bizim Şarkımız</title>
+
+<style>
+
 body{
+margin:0;
 background:black;
-color:white;
 font-family:Arial;
 text-align:center;
-margin:0;
+color:white;
+overflow:hidden;
+}
+
+/* kalpler */
+
+.heart{
+position:fixed;
+color:red;
+font-size:20px;
+animation:fall 6s linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-100px)}
+100%{transform:translateY(110vh)}
 }
 
 .container{
-margin-top:60px;
-padding:20px;
-background:black;
-border-radius:30px;
-box-shadow:0 0 40px rgba(255,0,80,0.6);
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
 width:90%;
-max-width:420px;
-margin-left:auto;
-margin-right:auto;
+max-width:400px;
+padding:30px;
+border-radius:25px;
+background:black;
+box-shadow:0 0 40px red;
 }
 
-img{
-width:100%;
-border-radius:20px;
-box-shadow:0 0 25px rgba(255,0,80,0.5);
-display:none;
+input{
+width:90%;
+padding:15px;
+font-size:18px;
+border-radius:15px;
+border:none;
+margin-top:10px;
 }
 
 button{
 margin-top:20px;
 padding:15px 40px;
-border:none;
-border-radius:40px;
-background:#f3b6c1;
 font-size:20px;
+border:none;
+border-radius:30px;
+background:#ff4d88;
+color:white;
 cursor:pointer;
 }
 
-input{
-padding:12px;
-font-size:18px;
-border-radius:10px;
-border:none;
-margin-top:15px;
-text-align:center;
+#songBtn{
+width:100%;
+margin-top:25px;
 }
 
-.error{
-margin-top:20px;
+#error{
 color:red;
-font-size:20px;
-}
-</style></head><body><h1>Bizim Şarkımız ❤️</h1><div class="container"><input id="codeInput" placeholder="Kodu gir">
-<br><button onclick="loadContent()">Aç</button>
-
-<br><br>
-
-<img id="photo"><br><button onclick="playSong()">Şarkıyı Başlat 🎵</button>
-
-<audio id="song"></audio>
-
-<div id="error" class="error"></div></div><script>
-
-function loadContent(){
-
-const code=document.getElementById("codeInput").value.trim();
-
-const photoUrl="https://res.cloudinary.com/dbtlit7hz/image/upload/clients/"+code+".jpg";
-const songUrl="/lovers/codes/"+code+"/sarki.mp3";
-
-const img=document.getElementById("photo");
-const song=document.getElementById("song");
-const error=document.getElementById("error");
-
-error.innerText="";
-
-img.src=photoUrl;
-song.src=songUrl;
-
-img.onload=function(){
-img.style.display="block";
+margin-top:15px;
+font-size:18px;
+display:none;
 }
 
-img.onerror=function(){
-img.style.display="none";
-error.innerText="Yanlış Kod";
+#foto{
+display:none;
+width:90%;
+margin-top:20px;
+border-radius:20px;
 }
+
+</style>
+</head>
+
+<body>
+
+<h1>Bizim Şarkımız ❤️</h1>
+
+<div class="container">
+
+<input id="code" placeholder="Kodu gir">
+
+<br>
+
+<button onclick="kontrol()">Aç</button>
+
+<br>
+
+<img id="foto" src="foto.jpg">
+
+<button id="songBtn" onclick="cal()">Şarkıyı Başlat 🎵</button>
+
+<div id="error">Yanlış Kod</div>
+
+<audio id="music" src="sarki.mp3"></audio>
+
+</div>
+
+<script>
+
+function kontrol(){
+
+let girilen = document.getElementById("code").value.trim()
+
+if(girilen === "EC2026"){
+
+document.getElementById("foto").style.display="block"
+document.getElementById("error").style.display="none"
+
+}else{
+
+document.getElementById("error").style.display="block"
 
 }
 
-function playSong(){
-document.getElementById("song").play();
 }
 
-</script></body>
+function cal(){
+
+document.getElementById("music").play()
+
+}
+
+/* kalp oluştur */
+
+for(let i=0;i<25;i++){
+
+let kalp=document.createElement("div")
+kalp.className="heart"
+kalp.innerHTML="❤"
+
+kalp.style.left=Math.random()*100+"%"
+kalp.style.animationDuration=(3+Math.random()*5)+"s"
+
+document.body.appendChild(kalp)
+
+}
+
+</script>
+
+</body>
 </html>
