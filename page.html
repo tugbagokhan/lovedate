@@ -52,34 +52,19 @@ font-size:20px;
 
 <div id="error" class="error"></div></div><script>
 
+<script>
+
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
 
-if(!code){
-document.getElementById("error").innerText="Kod bulunamadı";
-}
-
 const photoUrl = "https://res.cloudinary.com/dbtlit7hz/image/upload/clients/" + code + ".jpg";
-const songUrl = "codes/" + code + "/sarki.mp3";
+const songUrl = "/lovers/codes/" + code + "/sarki.mp3";
 
-const img=document.getElementById("photo");
-const song=document.getElementById("song");
-
-img.src=photoUrl;
-song.src=songUrl;
-
-img.onerror=function(){
-document.getElementById("error").innerText="Yanlış Kod";
-img.style.display="none";
-}
-
-song.onerror=function(){
-document.getElementById("error").innerText="Yanlış Kod";
-}
+document.getElementById("photo").src = photoUrl;
+document.getElementById("song").src = songUrl;
 
 function playSong(){
-song.play();
+document.getElementById("song").play();
 }
 
-</script></body>
-</html>
+</script>
