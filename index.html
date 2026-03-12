@@ -36,7 +36,7 @@ display:flex;
 align-items:center;
 justify-content:center;
 cursor:pointer;
-box-shadow:0 0 25px rgba(0,0,0,0.6);
+box-shadow:0 0 30px rgba(0,0,0,0.8);
 }
 
 #playBtn:after{
@@ -44,7 +44,7 @@ content:"";
 border-left:35px solid white;
 border-top:20px solid transparent;
 border-bottom:20px solid transparent;
-margin-left:5px;
+margin-left:6px;
 }
 
 /* PERDE */
@@ -54,22 +54,28 @@ position:absolute;
 top:0;
 width:50%;
 height:100%;
-background:url("curtain.jpg") center/cover no-repeat;
-transition:2.5s ease;
+background-image:url("curtain.jpg");
+background-size:200% 100%;
+background-repeat:no-repeat;
+transition:2.2s ease;
 z-index:10;
 }
 
+/* SOL PERDE */
+
 #leftCurtain{
 left:0;
-background-position:left;
+background-position:left center;
 }
+
+/* SAĞ PERDE */
 
 #rightCurtain{
 right:0;
-background-position:right;
+background-position:right center;
 }
 
-/* PERDE AÇILMASI */
+/* PERDE AÇILMA */
 
 .openLeft{
 transform:translateX(-100%);
@@ -168,7 +174,7 @@ document.getElementById("playBtn").style.display="none";
 document.getElementById("leftCurtain").classList.add("openLeft");
 document.getElementById("rightCurtain").classList.add("openRight");
 
-setTimeout(startCountdown,2500);
+setTimeout(startCountdown,2200);
 
 }
 
@@ -207,7 +213,6 @@ function showCode(){
 document.getElementById("stage").style.display="none";
 
 let screen=document.getElementById("codeScreen");
-
 screen.style.display="flex";
 
 setInterval(()=>{
