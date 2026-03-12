@@ -43,7 +43,7 @@ cursor:pointer;
 .error{
 margin-top:30px;
 color:red;
-font-size:18px;
+font-size:20px;
 }
 
 </style></head><body><h1>Bizim Şarkımız ❤️</h1><div class="container"><img id="photo"><br><button onclick="playSong()">Şarkıyı Başlat 🎵</button>
@@ -57,18 +57,28 @@ const code = params.get("code");
 
 if(!code){
 document.getElementById("error").innerText="Kod bulunamadı";
-}else{
+}
 
 const photoUrl = "https://res.cloudinary.com/dbtlit7hz/image/upload/clients/" + code + ".jpg";
 const songUrl = "codes/" + code + "/sarki.mp3";
 
-document.getElementById("photo").src = photoUrl;
-document.getElementById("song").src = songUrl;
+const img=document.getElementById("photo");
+const song=document.getElementById("song");
 
+img.src=photoUrl;
+song.src=songUrl;
+
+img.onerror=function(){
+document.getElementById("error").innerText="Yanlış Kod";
+img.style.display="none";
+}
+
+song.onerror=function(){
+document.getElementById("error").innerText="Yanlış Kod";
 }
 
 function playSong(){
-document.getElementById("song").play();
+song.play();
 }
 
 </script></body>
