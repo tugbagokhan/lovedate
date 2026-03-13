@@ -2,7 +2,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Love</title><style>
+<title>For My Love</title>
+
+<style>
 
 body{
 margin:0;
@@ -166,6 +168,18 @@ max-width:400px;
 border-radius:20px;
 }
 
+/* HEART LAYER */
+
+#heartLayer{
+position:fixed;
+width:100%;
+height:100%;
+top:0;
+left:0;
+pointer-events:none;
+overflow:hidden;
+}
+
 /* HEARTS */
 
 .heart{
@@ -180,18 +194,53 @@ animation:float 6s linear infinite;
 100%{transform:translateY(-10vh);opacity:0}
 }
 
-</style></head><body><div id="stage"><div id="playBtn" onclick="startExperience()"></div><div id="leftCurtain" class="curtain"></div>
-<div id="rightCurtain" class="curtain"></div><div id="countdown">
-<video id="countVideo" src="countdown.mp4"></video>
-</div></div><div id="flash"></div><div id="codeScreen"><h2>❤️Sürprize son bir adım❤️</h2><input id="codeInput" placeholder="Kod gir"><button onclick="go()">Aç</button>
+</style>
+</head>
 
-<div id="error">Yanlış Kod</div></div><div id="result"><img id="photo"><br><br>
+<body>
+
+<div id="stage">
+
+<div id="playBtn" onclick="startExperience()"></div>
+
+<div id="leftCurtain" class="curtain"></div>
+<div id="rightCurtain" class="curtain"></div>
+
+<div id="countdown">
+<video id="countVideo" src="countdown.mp4"></video>
+</div>
+
+</div>
+
+<div id="flash"></div>
+
+<div id="codeScreen">
+
+<h2>❤️Sürprize son bir adım❤️</h2>
+
+<input id="codeInput" placeholder="Kod gir">
+
+<button onclick="go()">Aç</button>
+
+<div id="error">Yanlış Kod</div>
+
+</div>
+
+<div id="result">
+
+<img id="photo"><br><br>
 
 <button onclick="playMusic()">Şarkıyı Çal 🎵</button>
 
 <audio id="music">
 <source id="musicSource" type="audio/mpeg">
-</audio></div><script>
+</audio>
+
+</div>
+
+<div id="heartLayer"></div>
+
+<script>
 
 function startExperience(){
 
@@ -250,7 +299,7 @@ h.innerText="❤";
 
 h.style.left=Math.random()*100+"%";
 
-document.body.appendChild(h);
+document.getElementById("heartLayer").appendChild(h);
 
 setTimeout(()=>h.remove(),6000);
 
@@ -296,5 +345,7 @@ document.getElementById("music").play();
 
 }
 
-</script></body>
+</script>
+
+</body>
 </html>
